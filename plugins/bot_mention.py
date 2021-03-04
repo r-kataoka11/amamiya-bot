@@ -18,7 +18,10 @@ def kawaii(message):
   message.react('kissing_heart')
   message.reply('ありがと:kissing_heart:')
 
-@listen_to('LINE')
+@listen_to('おはよう')
+def hello(message):
+  message.reply('おはよう！')
+
 def line(message):
   message.reply('既読スルーしてごめんね！')
 
