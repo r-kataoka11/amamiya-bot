@@ -1,5 +1,6 @@
 from slackbot.bot import respond_to, listen_to, default_reply
 import random
+import re
 
 @listen_to('疲れた|つかれた')
 def tukareta(message):
@@ -22,6 +23,7 @@ def kawaii(message):
 def hello(message):
   message.reply('おはよう！')
 
+@listen_to('LINE', re.IGNORECASE)
 def line(message):
   message.reply('既読スルーしてごめんね！')
 
