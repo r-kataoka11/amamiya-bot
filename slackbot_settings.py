@@ -9,3 +9,7 @@ load_dotenv(dotenv_path)
 API_TOKEN = os.environ.get("API_KEY")
 
 default_reply = 'ちょっとよくわからなかったです＞＜'
+
+PLUGINS = [
+  'plugins',
+]
