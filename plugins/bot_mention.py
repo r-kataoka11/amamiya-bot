@@ -14,6 +14,13 @@ def tukareta(message):
 def ganbatta(message):
   message.reply('お疲れさま！')
 
+@listen_to('スマブラ')
+def smash_bro(message):
+  message.react('smashbros')
+  message.react('wa-i2')
+  text = random.choice(['リングに上がってください:kissing_heart:', 'おみごとメテオ！'],)
+  message.reply(text)
+
 @respond_to('可愛い|かわいい')
 def kawaii(message):
   message.react('kissing_heart')
