@@ -29,7 +29,8 @@ def line(message):
 
 @listen_to('筋肉')
 def muscle(message):
-  message.reply('素敵な大胸筋！！')
+  text = random.choice(['素敵な大胸筋！！', 'はちきれそうな大胸筋、山みたいな僧帽筋、鎧みたいな大腿四頭筋'])
+  message.reply(text)
 
 @default_reply
 def default_handler(message):
