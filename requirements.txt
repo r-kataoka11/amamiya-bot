@@ -1,0 +1,10 @@
+certifi==2020.12.5
+chardet==4.0.0
+idna==2.10
+python-dotenv==0.15.0
+requests==2.25.1
+six==1.15.0
+slackbot==1.0.0
+slacker==0.14.0
+urllib3==1.26.3
+websocket-client==0.44.0
