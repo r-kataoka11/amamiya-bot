@@ -27,6 +27,12 @@ def hello(message):
 def line(message):
   message.reply('既読スルーしてごめんね！')
 
+@listen_to('筋肉')
+def muscle(message):
+  message.reply('素敵な大胸筋！！')
+
 @default_reply
 def default_handler(message):
   message.reply('ちょっとよくわからなかったです＞＜!')
+
+
