@@ -1,6 +1,7 @@
 from slackbot.bot import respond_to, listen_to, default_reply
 import random
 import re
+from utils.slackbok_utils import only_super_user
 
 @listen_to('疲れた|つかれた')
 def tukareta(message):
@@ -22,9 +23,16 @@ def smash_bro(message):
   message.reply(text)
 
 @respond_to('可愛い|かわいい')
+@only_super_user
 def kawaii(message):
   message.react('kissing_heart')
   message.reply('ありがと:kissing_heart:')
+
+@respond_to('好き|すき|love', re.IGNORECASE)
+@only_super_user
+def love(message):
+  message.react('kissing_heart')
+  message.reply('私もだよ！:kissing_heart:')
 
 @listen_to('おはよう')
 def hello(message):
