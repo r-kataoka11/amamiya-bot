@@ -35,6 +35,12 @@ def rimo_kai(message):
   text = random.choice(['えらいぞ〜！:emo_heart: ', '今日も一日頑張ろう！:heartpulse:'],)
   message.reply(text)
 
+@listen_to('りも終|rimoshu', re.IGNORECASE)
+def rimo_shu(message):
+  text = random.choice(['今日も一日お疲れ様！', '頑張ったね:otsukarecosta:', 'また明日:wave:'],)
+  message.react('otukaresamadesita')
+  message.reply(text)
+
 @listen_to('LINE', re.IGNORECASE)
 def line(message):
   message.reply('既読スルーしてごめんね！')
