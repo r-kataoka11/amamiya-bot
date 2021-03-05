@@ -32,7 +32,7 @@ def hello(message):
 
 @listen_to('りも開|rimokai', re.IGNORECASE)
 def rimo_kai(message):
-  text = random.choice(['労働してえらいぞ〜！:emo_heart: ', '今日も一日頑張ろう！:heartpulse:'],)
+  text = random.choice(['えらいぞ〜！:emo_heart: ', '今日も一日頑張ろう！:heartpulse:'],)
   message.reply(text)
 
 @listen_to('LINE', re.IGNORECASE)
