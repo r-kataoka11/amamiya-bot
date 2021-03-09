@@ -45,7 +45,7 @@ def rimo_kai(message):
 
 @listen_to('何か面白いこと言って|なにか面白いこと言って', )
 def oyaji_gag(message):
-  text = random.choice(['この焼き肉は　焼きにくい', 'この鶏肉は　取りにくい', 'ウクライナは　もう暗いな'],)
+  text = random.choice(['この焼き肉は　焼きにくい:wink:', 'この鶏肉は　取りにくい:wink:', 'ウクライナは　もう暗いな:wink:'],)
   message.reply(text)
 
 @listen_to('りも終|rimoshu', re.IGNORECASE)
