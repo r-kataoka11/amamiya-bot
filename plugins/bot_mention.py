@@ -58,6 +58,10 @@ def rimo_shu(message):
 def line(message):
   message.reply('既読スルーしてごめんね！')
 
+@listen_to('マッサージ')
+def massage(message):
+  message.reply('それ顔が来るスペースだよ :rolling_on_the_floor_laughing:')
+
 @listen_to('筋肉')
 def muscle(message):
   text = random.choice(['素敵な大胸筋！！', 'はちきれそうな大胸筋、山みたいな僧帽筋、鎧みたいな大腿四頭筋'])
