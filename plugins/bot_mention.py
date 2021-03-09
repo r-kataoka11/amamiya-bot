@@ -43,6 +43,11 @@ def rimo_kai(message):
   text = random.choice(['えらいぞ〜！:emo_heart: ', '今日も一日頑張ろう！:heartpulse:'],)
   message.reply(text)
 
+@listen_to('何か面白いこと言って|なにか面白いこと言って', )
+def oyaji_gag(message):
+  text = random.choice(['この焼き肉は　焼きにくい', 'この鶏肉は　取りにくい', 'ウクライナは　もう暗いな'],)
+  message.reply(text)
+
 @listen_to('りも終|rimoshu', re.IGNORECASE)
 def rimo_shu(message):
   text = random.choice(['今日も一日お疲れ様！', '頑張ったね:otsukarecosta:', 'また明日:wave:'],)
