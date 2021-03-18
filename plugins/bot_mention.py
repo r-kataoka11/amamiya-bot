@@ -55,6 +55,7 @@ def rimo_shu(message):
   message.reply(text)
 
 @listen_to('LINE', re.IGNORECASE)
+@only_super_user
 def line(message):
   message.reply('既読スルーしてごめんね！')
 
