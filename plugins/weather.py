@@ -1,4 +1,4 @@
-import os
+import os, re
 from os.path import join, dirname
 from dotenv import load_dotenv
 from slackbot.bot import respond_to
@@ -8,7 +8,8 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 API_KEY = os.environ.get("WEATHER_API_KEY")
-API_ENDPOINT = f"http://api.weatherstack.com/current?access_key={API_KEY}"
+TODAY_API_ENDPOINT = f"http://api.weatherstack.com/current?access_key={API_KEY}"
+FORECAST_API_ENDPOINT = f"http://api.weatherstack.com/forecast?access_key={API_KEY}"
 
 WEATHER_CODE = {
   113: "快晴",
@@ -64,15 +65,41 @@ def uv_index_comment_maker(index):
     return "非常に強い"
   return "極端に強い"
 
-@respond_to('(.*)の天気を教えて')
-def weather(message, capital=""):
+# 日付に関する一言
+def date_maker(match):
+  if len(match) == 2:
+    return "今日"
+  elif len(match) == 3:
+    return match[0] if match[0] != "明日" else "今日"
+
+# 今日の天気情報を取得する
+def get_today_weather(capital):
+  return requests.get(f"{TODAY_API_ENDPOINT}&query={capital}").json()
+
+# 明日の天気情報を取得する
+def get_tomorrow_weather(match):
+  if match[0].startswith("明日"):
+    return requests.get(f"{FORECAST_API_ENDPOINT}&query={match[1]}&forecast_days=1&hourly=0").json()
+
+  # 条件に当てはまらないものは今日の天気を返す
+  return get_today_weather(match[1])
+
+@respond_to('の天気を教えて')
+def weather(message):
+  mes = message.body["text"]
+  match = re.findall('[^の]+', mes)
+
   # 都市名が空の場合
-  if capital == "":
+  if len(match) == 1:
     message.reply("英語で都市名を教えてね＞＜")
     return None
 
   # 天気APIから指定した都市の現在の天気を取得
-  weather_data = requests.get(f"{API_ENDPOINT}&query={capital}").json()
+  weather_data = []
+  if len(match) == 2:
+    weather_data = get_today_weather(match[0])
+  elif len(match) == 3:
+    weather_data = get_tomorrow_weather(match)
 
   # APIがエラーの場合
   if "success" in weather_data:
@@ -92,4 +119,7 @@ def weather(message, capital=""):
   # UV指数に関するコメント
   uv_index_comment = uv_index_comment_maker(uv_index)
 
-  message.reply(f"{city}の天気は、{weather_status}です！\n気温は{temp}で、UV指数は{uv_index_comment}です！\n{weather_comment}")
+  # 日付に関するコメント
+  date_comment = date_maker(match)
+
+  message.reply(f"{date_comment}の{city}の天気は、{weather_status}です！\n気温は{temp}で、UV指数は{uv_index_comment}です！\n{weather_comment}")
