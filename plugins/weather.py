@@ -38,6 +38,32 @@ WEATHER_CODE = {
   311: "着氷性の弱い雨",
 }
 
+# 天気による一言
+def weather_comment_maker(code):
+  if code == 113:
+    return "天気がいいので一緒にお出かけしませんか？"
+  elif code == 200:
+    return "わたし雷きらいだなぁ＞＜"
+  elif code in [116, 119, 122]:
+    return "曇りの日はアロマキャンドルを炊くといいよ！"
+  elif code in [179, 227,230]:
+    return "雪を見に行きたいな！"
+  elif code in [143, 248, 260]:
+    return "交通事故に気をつけてね・・・！"
+  return "傘を忘れないようにね！"
+
+# UV指数による一言
+def uv_index_comment_maker(index):
+  if index in [0, 1]:
+    return "弱い"
+  elif index in [2, 3, 4]:
+    return "中程度"
+  elif index in [5, 6]:
+    return "強い"
+  elif index in [7, 8, 9]:
+    return "非常に強い"
+  return "極端に強い"
+
 @respond_to('(.*)の天気を教えて')
 def weather(message, capital=""):
   # 都市名が空の場合
@@ -61,31 +87,9 @@ def weather(message, capital=""):
   uv_index = weather_data["current"]["uv_index"]
 
   # 天気に関するひとこと
-  weather_comment = ""
-  if weather_code == 113:
-    weather_comment = "天気がいいので一緒にお出かけしませんか？"
-  elif weather_code == 200:
-    weather_comment = "わたし雷きらいだなぁ＞＜"
-  elif weather_code in [116, 119, 122]:
-    weather_comment = "曇りの日はアロマキャンドルを炊くといいよ！"
-  elif weather_code in [179, 227,230]:
-    weather_comment = "雪を見に行きたいな！"
-  elif weather_code in [143, 248, 260]:
-    weather_comment = "交通事故に気をつけてね・・・！"
-  else:
-    weather_comment = "傘を忘れないようにね！"
+  weather_comment = weather_comment_maker(weather_code)
 
   # UV指数に関するコメント
-  uv_index_comment = ""
-  if uv_index in [0, 1]:
-    uv_index_comment = "弱い"
-  elif uv_index in [2, 3, 4]:
-    uv_index_comment = "中程度"
-  elif uv_index in [5, 6]:
-    uv_index_comment = "強い"
-  elif uv_index in [7, 8, 9]:
-    uv_index_comment = "非常に強い"
-  else:
-    uv_index_comment = "極端に強い"
+  uv_index_comment = uv_index_comment_maker(uv_index)
 
   message.reply(f"{city}の天気は、{weather_status}です！\n気温は{temp}で、UV指数は{uv_index_comment}です！\n{weather_comment}")
