@@ -54,11 +54,6 @@ def rimo_shu(message):
   message.react('otukaresamadesita')
   message.reply(text)
 
-@listen_to('LINE', re.IGNORECASE)
-@only_super_user
-def line(message):
-  message.reply('既読スルーしてごめんね！')
-
 @listen_to('マッサージ')
 def massage(message):
   message.reply('それ顔が来るスペースだよ :rolling_on_the_floor_laughing:')
