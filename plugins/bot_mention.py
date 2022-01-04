@@ -15,7 +15,7 @@ def tukareta(message):
 def ganbatta(message):
   message.reply('お疲れさま！')
 
-@listen_to('スマブラ')
+@respond_to('スマブラ')
 def smash_bro(message):
   message.react('smashbros')
   message.react('wa-i2')
